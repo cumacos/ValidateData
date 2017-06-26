@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>JavaScript & JSON</title>
+<meta http-equiv=Content-Type content="text/html; charset=UTF-8">
+<script src="dom.js"></script>
+<script src="array.js"></script>
+<script src="inicio.js"></script>
+<script src="validateData.js"></script>
+<script src="numero.js"></script>
+<script src="date.js"></script>
+<script src="time.js"></script>
+<script src="combo.js"></script>
+<link rel="stylesheet" type="text/css" href="validateData.css">
+</head>
+<body onload='inicio()'>
+<h1>Ej.: Formatear, Inicializar, Restringir y Validar Datos (sin jQuery)</h1>
+<section id="contenido" align="center">         
+    <div align="center">
+        <div align="center">
+            <table class="tabla_grid" style="width: 80%" border=0>
+                <tr>
+                    <td>Num (int):</td>
+                    <td>
+                        <input id="id_num_int" 
+                               name="num_int"
+                               autocomplete='off' 
+                               size="43" 
+                               value=""
+                               maxlength="100"
+                               data-format='integer'
+                               data-validation='integer'>                                        
+                    </td>
+                </tr>
+                <tr style="background-color:#f0f0f0">
+                    <td>Num (int) >= 1:</td>
+                    <td>
+                        <input id="id_num_int_min" 
+                               name="num_int_min"
+                               autocomplete='off' 
+                               size="43" 
+                               value=""
+                               maxlength="100"
+                               data-format='integer'
+                               data-validation='integer'
+                               data-validation-min="1">                                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>Num (int) <= 5000000:</td>
+                    <td>
+                        <input id="id_num_int_max" 
+                               name="num_int_max"
+                               autocomplete='off' 
+                               size="43" 
+                               value=""
+                               maxlength="100"
+                               data-format='integer'
+                               data-validation='integer'
+                               data-validation-max="5000000">                                        
+                    </td>
+                </tr>
+                <tr style="background-color:#f0f0f0">
+                    <td>Num (int) >= 1 y <= 5000000:</td>
+                    <td>
+                        <input id="id_num_int_min_max" 
+                               name="num_int_min_max"
+                               autocomplete='off' 
+                               size="43" 
+                               value=""
+                               maxlength="100"
+                               data-format='integer'
+                               data-validation='integer'
+                               data-validation-min-max="1-5000000">                                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>Num (float):</td>
+                    <td>
+                        <input id="id_num_float" 
+                               name="num_float"
+                               autocomplete='off' 
+                               size="43" 
+                               value=""
+                               maxlength="100"
+                               data-format='float'
+                               data-validation='float'>                                        
+                    </td>
+                </tr>
+                <tr style="background-color:#f0f0f0">
+                    <td>Num (float) >= 0.01:</td>
+                    <td>
+                        <input id="id_num_float_min" 
+                               name="num_float_min"
+                               autocomplete='off' 
+                               size="43" 
+                               value=""
+                               maxlength="100"
+                               data-format='float'
+                               data-validation='float'
+                               data-validation-min='0.01'>                                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>Num (float) <= 5000000:</td>
+                    <td>
+                        <input id="id_num_float_max" 
+                               name="num_float_max"
+                               autocomplete='off' 
+                               size="43" 
+                               value=""
+                               maxlength="100"
+                               data-format='float'
+                               data-validation='float'
+                               data-validation-max='5000000'>                                        
+                    </td>
+                </tr>
+                <tr style="background-color:#f0f0f0">
+                    <td>Num (float) >= 0.01 y <= 5000000:</td>
+                    <td>
+                        <input id="id_num_float_min_max" 
+                               name="num_float_min_max"
+                               autocomplete='off' 
+                               size="43" 
+                               value=""
+                               maxlength="100"
+                               data-format='float'
+                               data-validation='float'
+                               data-validation-min-max='0.01-5000000'>                                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>Num (float 3 dec):</td>
+                    <td>
+                        <input id="id_num_float_3d" 
+                               name="num_float_3d"
+                               autocomplete='off' 
+                               size="43" 
+                               value=""
+                               maxlength="100"
+                               data-format='float_3d'
+                               data-validation='float_3d'>                                        
+                    </td>
+                </tr>
+                <tr style="background-color:#f0f0f0">
+                    <td>Num (float 3 dec) >= 0.001:</td>
+                    <td>
+                        <input id="id_num_float_3d_min" 
+                               name="num_float_3d_min"
+                               autocomplete='off' 
+                               size="43" 
+                               value=""
+                               maxlength="100"
+                               data-format='float_3d'
+                               data-validation='float_3d'
+                               data-validation-min='0.001'>                                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>Num (float 3 dec) <= 5000000:</td>
+                    <td>
+                        <input id="id_id_num_float_3d_max" 
+                               name="num_float_3d_max"
+                               autocomplete='off' 
+                               size="43" 
+                               value=""
+                               maxlength="100"
+                               data-format='float_3d'
+                               data-validation='float_3d'
+                               data-validation-max='5000000'>                                        
+                    </td>
+                </tr>
+                <tr style="background-color:#f0f0f0">
+                    <td>Num (float 3 dec) >= 0.001 <= 5000000:</td>
+                    <td>
+                        <input id="id_num_float_3d_min_max" 
+                               name="num_float_3d_min_max"
+                               autocomplete='off' 
+                               size="43" 
+                               value=""
+                               maxlength="100"
+                               data-format='float_3d'
+                               data-validation='float_3d'
+                               data-validation-min-max='0.001-5000000'>                                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>Date:</td>
+                    <td>
+                        <input name="fecha" 
+                               type="text" 
+                               id="id_fecha" 
+                               value="" 
+                               data-constraints='date'
+                               data-validation='date'
+                               maxlength='10'/>
+                     </td>
+                </tr>
+                <tr style="background-color:#f0f0f0">
+                    <td>Date (min 2018-01-01):</td>
+                    <td>
+                        <input name="fecha_min" 
+                               type="text" 
+                               id="id_fecha_min" 
+                               value="" 
+                               data-constraints='date'
+                               data-validation='date' 
+                               data-validation-min='2018-01-01'
+                               maxlength='10'/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Date (max 2016-12-31):</td>
+                    <td>
+                        <input name="fecha_max" 
+                               type="text" 
+                               id="id_fecha_max" 
+                               value=""
+                               data-constraints='date'
+                               data-validation='date'
+                               data-validation-max='2016-12-31'
+                               maxlength='10'/>
+                    </td>
+                </tr>
+                <tr style="background-color:#f0f0f0">
+                    <td>Date (min-max 2016-12-31 / 2018-01-01):</td>
+                    <td>
+                        <input name="fecha_min_max" 
+                               type="text" 
+                               id="id_fecha_min_max" 
+                               value=""
+                               data-constraints='date'
+                               data-validation='date' 
+                               data-validation-min-max='2016-12-31/2018-01-01'
+                               maxlength='10'/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Time: </td>
+                    <td> 
+                        <input id="id_time"
+                               name="time" 
+                               type="text" 
+                               data-format='uppercase'
+                               data-constraints='time'
+                               data-validation='time'
+                               maxlength='8'/>
+                    </td>
+                </tr>
+                <tr style="background-color:#f0f0f0">
+                    <td>Time (min 09:00:AM):</td>
+                    <td> 
+                        <input id="id_time_min"
+                               name="time_min" 
+                               type="text"
+                               data-format='uppercase'
+                               data-constraints='time'
+                               data-validation='time'
+                               data-validation-min='09:00:AM'
+                               maxlength='8'/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Time (max 03:00:PM): </td>
+                    <td> 
+                        <input id="id_time_max"
+                               name="time_max" 
+                               type="text"
+                               data-format='uppercase' 
+                               data-constraints='time'
+                               data-validation='time'
+                               data-validation-max='03:00:PM'
+                               maxlength='8'/>
+                    </td>
+                </tr>
+                <tr style="background-color:#f0f0f0">
+                    <td>Time (min-max 09:00:AM - 03:00:PM): </td>
+                    <td> 
+                        <input id="id_time_min_max"
+                               name="time_min_max" 
+                               type="text" 
+                               data-format='uppercase'
+                               data-constraints='time'
+                               data-validation='time'
+                               data-validation-min-max='09:00:AM-03:00:PM'
+                               maxlength='8'/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Length (10 char):</td>
+                    <td>
+                        <input id="id_length" 
+                               name="length" 
+                               autocomplete='off'
+                               size="43" 
+                               value=""
+                               maxlength="100"
+                               placeholder="Length (10 char) "   
+                               data-validation='length'
+                               data-validation-length="10">
+                    </td>
+                </tr>
+                <tr style="background-color:#f0f0f0">
+                    <td>Length (5 min):</td>
+                    <td>
+                        <input id="id_length_min" 
+                               name="length_min" 
+                               autocomplete='off'
+                               size="43" 
+                               value=""
+                               maxlength="100"
+                               placeholder="Length (5 min)"  
+                               data-validation='length'
+                               data-validation-min="5">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Length (10 max):</td>
+                    <td>
+                        <input id="id_length_max" 
+                               name="length_max" 
+                               autocomplete='off'
+                               size="43" 
+                               value=""
+                               maxlength="100"
+                               placeholder="Length (10 max)"  
+                               data-validation='length'
+                               data-validation-max="10">
+                    </td>
+                </tr>
+                <tr style="background-color:#f0f0f0">
+                    <td>Length (5 min - 10 max):</td>
+                    <td>
+                        <input id="id_length_min_max" 
+                               name="length_min_max" 
+                               autocomplete='off'
+                               size="43" 
+                               value=""
+                               maxlength="100"
+                               placeholder="Length (5 min - 10 max)"  
+                               data-validation='length'
+                               data-validation-min-max="5-10">
+                    </td>
+                </tr>
+               <tr>
+                    <td>Required:</td>
+                    <td>
+                        <input id="id_required" 
+                               name="required"
+                               autocomplete='off' 
+                               size="43" 
+                               style="width: 99%;"
+                               value=""
+                               maxlength="100"
+                               data-validation='required'
+                               placeholder="Required"/>                                        
+                    </td>
+                </tr>
+               <tr style="background-color:#f0f0f0">
+                    <td>Required (number):</td>
+                    <td>
+                        <input id="id_required_number" 
+                               name="required_number"
+                               autocomplete='off' 
+                               size="43" 
+                               style="width: 99%;"
+                               value=""
+                               maxlength="100"
+                               data-constraints='number'
+                               data-validation='required'
+                               placeholder="Required (number"/>                                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>Required (uppercase letters):</td>
+                    <td>
+                        <input id="id_required_letter_upper" 
+                               name="required_letter_upper"
+                               autocomplete='off' 
+                               size="43" 
+                               value=""
+                               maxlength="100"
+                               data-format='uppercase'
+                               data-constraints='letter'
+                               data-validation='required'
+                               placeholder="Required (uppercase letters)"/>                                        
+                    </td>
+                </tr> 
+                <tr style="background-color:#f0f0f0">
+                    <td>Required (lowercase letters):</td>
+                    <td>
+                        <input id="id_required_letter_lower" 
+                               name="required_letter_lower"
+                               autocomplete='off' 
+                               size="43" 
+                               value=""
+                               maxlength="100"
+                               data-format='lowercase'
+                               data-constraints='letter'
+                               data-validation='required'
+                               placeholder="Required (lowercase letters)"/>
+                    </td>
+                </tr>             
+                 <tr>
+                    <td>Required (code):</td>
+                    <td>
+                        <input id="id_required_code" 
+                               name="required_code"
+                               autocomplete='off' 
+                               size="43" 
+                               value=""
+                               maxlength="100"
+                               data-format='uppercase'
+                               data-constraints='code'
+                               data-validation='required'
+                               placeholder="Required (code)"/>
+                    </td>
+                </tr>
+                <tr style="background-color:#f0f0f0">
+                    <td>Required (Full Name):</td>
+                    <td>
+                        <input id="id_required_fullname" 
+                               name="required_fullname"
+                               autocomplete='off' 
+                               size="43" 
+                               value=""
+                               maxlength="100"
+                               data-format='uppercase'
+                               data-constraints='fullname'
+                               data-validation='required'
+                               placeholder="Required (Full Name)"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Required (Firm Name):</td>
+                    <td>
+                        <input id="id_required_firmname" 
+                               name="required_firmname"
+                               autocomplete='off' 
+                               size="43" 
+                               value=""
+                               maxlength="100"
+                               data-format='uppercase'
+                               data-constraints='firmname'
+                               data-validation='required'
+                               placeholder="Required (Firm Name)"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="background-color:#f0f0f0">Required (User Name):</td>
+                    <td>
+                        <input id="id_required_username" 
+                               name="required_username"
+                               autocomplete='off' 
+                               size="43" 
+                               value=""
+                               maxlength="100"
+                               data-format='lowercase'
+                               data-constraints='username'
+                               data-validation='required'
+                               placeholder="Required (User Name)"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td>
+                        <input id="id_email" 
+                               name="email"
+                               autocomplete='off' 
+                               size="43" 
+                               value=""
+                               maxlength="100"
+                               data-format='lowercase'
+                               data-constraints='email'
+                               data-validation='email'
+                               placeholder="email@dominio.ext"/>
+                    </td>
+                </tr>
+                <tr style="background-color:#f0f0f0">
+                    <td>Radio:</td>
+                    <td>
+                        <input type="radio" 
+                               id="id_radio" 
+                               name="radio"                                                
+                               data-validation='radio'
+                               value="Val1">Value 1
+                        <input type="radio" 
+                               id="id_radio" 
+                               name="radio"                                               
+			       data-validation='radio'
+                               value="Val2">Value 2
+                        <input type="radio" 
+                               id="id_radio" 
+                               name="radio"                                               
+			       data-validation='radio'
+                               value="Val3">Value 3
+                    </td>
+                </tr>
+                <tr>
+                    <td>Check Box:</td>
+                    <td aling='left'>           
+                        <input type="checkbox" 
+                               id = "id_posee_trayectoria" 
+                               name="posee_trayectoria" 
+                               data-validation='checkbox'>                                                                       
+                    </td>
+                </tr>
+                <tr style="background-color:#f0f0f0">
+                    <td>Text Area:</td>
+                    <td>
+                        <textarea id="id_eplique_trayectoria" 
+                                  name="eplique_trayectoria" 
+                                  rows="3" 
+                                  cols="55"
+                                  placeholder="Textarea"
+                                  data-format='uppercase'
+                                  data-constraints='textarea'
+                                  data-validation='textarea'
+                                  data-format='uppercase'></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Select Options:</td>
+                    <td>
+                        <select id="id_select" name="select" data-validation='select'>
+                            <option value=null selected>Select an option...</option>
+                            <option value=1 >Option-1</option>
+                            <option value=2 >Option-2</option>
+                            <option value=3 >Option-3</option>
+                        </select>  
+                    </td>
+                </tr>
+                <tr style="background-color:#f0f0f0">
+                    <td>Select Options Small:</td>
+                    <td>
+                        <select id="id_select_small" name="select_small" data-validation='select-small'>
+                            <option value=null selected>Select an option...</option>
+                            <option value=1 >Opt-1</option>
+                            <option value=2 >Opt-2</option>
+                            <option value=3 >Opt-3</option>
+                        </select>  
+                    </td>
+                </tr>
+                <tr>
+                    <td>Select Multiple:</td>
+                    <td>
+                    <div style="float:left;">
+                        <select id="objList" 
+                                name="objList"
+                                style="cursor:pointer;" 
+                                multiple 
+                                size="7" 
+                                onDblClick="move('right', document.getElementById('objList'), document.getElementById('objSelected'));
+                                            getValues(document.getElementById('objSelected'), document.getElementById('strArr'));
+                                            valObj(document.getElementById('objSelected'));">
+                                <option value=1 >Option-1</option>
+                                <option value=2 >Option-2</option>
+                                <option value=3 >Option-3</option>
+                        </select>
+                    </div>
+                    <div style="float:left;">
+                        <input type="button" 
+                               value=">>>" 
+                               onclick="move('right', document.getElementById('objList'), document.getElementById('objSelected')); 
+                                        getValues(document.getElementById('objSelected'), document.getElementById('strArr'));
+                                        valObj(document.getElementById('objSelected'));"
+                               style="cursor:pointer;"/>
+                        <input type="button" 
+                               value="<<<" 
+                               onclick="move('left', document.getElementById('objList'), document.getElementById('objSelected')); 
+                                        getValues(document.getElementById('objSelected'), document.getElementById('strArr'));
+                                        valObj(document.getElementById('objSelected'));"
+                               style="cursor:pointer;"/>
+                    </div>
+                    <div style="float:left;">
+                        <select id="objSelected" 
+                                name="objSelected"
+                                style="cursor:pointer;"  
+                                multiple 
+                                size="7" 
+                                onDblClick="move('left', document.getElementById('objList'), document.getElementById('objSelected')); 
+                                            getValues(document.getElementById('objSelected'), document.getElementById('strArr'));
+                                            valObj(document.getElementById('objSelected'));"
+                                data-validation="select-multiple">
+                        </select>
+                        <input  id="strArr" name="strArr" type="hidden" value="">
+                    </div>
+                </td>  
+            </tr>
+            </table>
+        </div>
+        <br/>
+        <button id="id_inicializar" type=button onClick="inicializarObjs();" >Inicializar</button>
+        <button id="id_guardar" type=button onClick="valEnvio();" >Guardar</button>
+    </div>
+</section>
+</body>
+</html>
