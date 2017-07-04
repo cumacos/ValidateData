@@ -28,41 +28,41 @@ input {
     padding: 3px;
 }
 
-input:hover{
-	border: dotted 2px; #000 !important;
+input:hover {
+    border: dotted 2px; #000 !important;
 }
 
 input.init {
-    background: #FAFAFA; /*url(../img/icon-ok.png)   no-repeat right center #E3FFE5*/
+    background: #FAFAFA; /*url(../img/icon-ok.png) no-repeat right center #E3FFE5*/
     color: #424242;
     border-color: #BFBFBF !important;
 }
 
 input.valid {
-    background: #F8FEF7; /*url(../img/icon-ok.png)   no-repeat right center #E3FFE5*/
+    background: #F8FEF7; /*url(../img/icon-ok.png) no-repeat right center #E3FFE5*/
     color: #002f00;
-    border-color: #96B796 !important;  
+    border-color: #96B796 !important;
 }
 
-input.valid:hover{
-	border: dotted 2px; #000 !important;
+input.valid:hover {
+    border: dotted 2px; #000 !important;
 }
 
 input.error {
-    background: #FFFAFA;/*url(../img/icon-fail.png) no-repeat right center   #ffebef*/
+    background: #FFFAFA; /*url(../img/icon-fail.png) no-repeat right center #ffebef*/
     color: #480000;
     border-color: red !important;
 }
 
-input.error:hover{
-	border: dotted 2px; #000 !important;
+input.error:hover {
+    border: dotted 2px; #000 !important;
 }
 
-input[type="radio"]{
+input[type="radio"] {
     width:10%;
 }
 
-input[type="checkbox"]{
+input[type="checkbox"] {
     width:10%;
 }
 
@@ -73,17 +73,17 @@ select {
 }
 
 select.init {
-    background: #FAFAFA; /*url(../img/icon-ok.png)   no-repeat right center #E3FFE5*/
+    background: #FAFAFA; /*url(../img/icon-ok.png) no-repeat right center #E3FFE5*/
     color: #424242;
     border-color: #BFBFBF !important;
 }
 
 select[data-validation="select"] {
-    width:99%;
+   width:99%;
 }
 
-select:hover{
-	border: dotted 2px; #000 !important;
+select:hover {
+    border: dotted 2px; #000 !important;
 }
 
 select.valid {
@@ -94,11 +94,10 @@ select.valid {
     padding: 3px;
     font-size: 14px;
    /* height:24px;*/
-   
 }
 
-select.valid:hover{
-	border: dotted 2px; #000 !important;
+select.valid:hover {
+    border: dotted 2px; #000 !important;
 }
 
 select.error {
@@ -107,12 +106,12 @@ select.error {
     border: 1px solid;
     border-color: red !important;
     padding: 3px;
-    font-size: 14px    
-   /* height:24px;*/
+    font-size: 14px;
+    /* height:24px;*/
 }
 
-select.error:hover{
-	border: dotted 2px; #000 !important;
+select.error:hover {
+    border: dotted 2px; #000 !important;
 }
 
 textarea {
@@ -122,29 +121,27 @@ textarea {
     padding: 3px;
 }
 
-textarea:hover{
-	border: dotted 2px; #000 !important;
+textarea:hover {
+    border: dotted 2px; #000 !important;
 }
 
 textarea.valid {
-    background: #F8FEF7;/*url(../img/icon-ok.png) no-repeat right top*/
+    background: #F8FEF7; /*url(../img/icon-ok.png) no-repeat right top*/
     color: #002f00;
     border-color: #96B796 !important;
-	
-   
 }
 
-textarea.valid:hover{
-	border: dotted 2px; #000 !important;
+textarea.valid:hover {
+    border: dotted 2px; #000 !important;
 }
 
 textarea.error {
-    background: #FFFAFA;/*url(../img/icon-fail.png) no-repeat right top*/
+    background: #FFFAFA; /*url(../img/icon-fail.png) no-repeat right top*/
     color: #480000;
     border-color: red !important;
 }
 
-textarea.error:hover{
-	border: dotted 2px; #000 !important;
+textarea.error:hover {
+    border: dotted 2px; #000 !important;
 }
 

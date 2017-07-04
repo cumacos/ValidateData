@@ -1,4 +1,4 @@
-/*Ernesto Jiménez @fdsoil */
+ /*Autor: Ernesto Jiménez @fdsoil */
 
 /** Restringe las entradas de datos contenidos dentro de un elemento HTML.
 * Los elementos contenedores pueden ser por ejemplo: FORM, DIV, TABLE, SECTION...
@@ -9,45 +9,47 @@
 function constraintsData(obj)
 {
     var aEvents = [ "onkeypress" ];
-    this.acceptOnlyRegExp = function (e,strRegExp)
-    {   
-        var tecla=(document.all)?e.keyCode:e.which;
-        if(tecla == 8)
-            return true;    
+    this.acceptOnlyRegExp = function( e, strRegExp )
+    {
+        var tecla = ( document.all ) ? e.keyCode : e.which;
+        if ( tecla == 8 )
+            return true;
         var patron = strRegExp;
         var te;
-        te=String.fromCharCode(tecla);
-        return patron.test(te);
+        te = String.fromCharCode( tecla );
+        return patron.test( te );
     }
     /* Accepts Only Letters. */
     var fLetter = "return acceptOnlyRegExp( event, /[a-zA-Z]/ );";
-    addSetAttributeInGroup(obj.querySelectorAll("[data-constraints=letter]"), aEvents, fLetter);
+    addSetAttributeInGroup( obj.querySelectorAll( "[data-constraints=letter]" ), aEvents, fLetter );
     /* Accepts Only Numbers. */
     var fNumber = "return acceptOnlyRegExp( event, /[0-9]/ );";
-    addSetAttributeInGroup(obj.querySelectorAll("[data-constraints=number]"), aEvents, fNumber);
+    addSetAttributeInGroup( obj.querySelectorAll( "[data-constraints=number]" ), aEvents, fNumber );
     /* Accepts Only Numbers and Letters. */
     var fCode = "return acceptOnlyRegExp( event, /[0-9a-zA-Z]/ );";
-    addSetAttributeInGroup(obj.querySelectorAll("[data-constraints=code]"), aEvents, fCode);
+    addSetAttributeInGroup( obj.querySelectorAll( "[data-constraints=code]" ), aEvents, fCode );
     /* Accepts Letters, Blanks, Points and Commas. */
     var fFullName = "return acceptOnlyRegExp( event, /[a-zA-Z\\s.,]/ );";
-    addSetAttributeInGroup(obj.querySelectorAll("[data-constraints=fullname]"), aEvents, fFullName);
+    addSetAttributeInGroup( obj.querySelectorAll( "[data-constraints=fullname]" ), aEvents, fFullName );
     /* Accepts Letters, Blanks, Points, Commas and Parentheses. */
     var fTextArea = "return acceptOnlyRegExp( event, /[0-9a-zñA-ZÑ\\s.,()]/ );";
-    addSetAttributeInGroup(obj.querySelectorAll("[data-constraints=textarea]"), aEvents, fTextArea);
+    addSetAttributeInGroup( obj.querySelectorAll( "[data-constraints=textarea]" ), aEvents, fTextArea );
     /* Accepts Letters, Blanks, Points, Commas, Parentheses and Ampersand. */
     var fFirmName = "return acceptOnlyRegExp( event, /[0-9a-zA-Z\\s.,()&]/ );";
-    addSetAttributeInGroup(obj.querySelectorAll("[data-constraints=firmname]"), aEvents, fFirmName);
+    addSetAttributeInGroup( obj.querySelectorAll( "[data-constraints=firmname]" ), aEvents, fFirmName);
     /* Accepts Numbers, Letters, Points And Underscore. */
     var fUserName = "return acceptOnlyRegExp( event, /[0-9a-zA-Z._]/ );";
-    addSetAttributeInGroup(obj.querySelectorAll("[data-constraints=username]"), aEvents, fUserName);
+    addSetAttributeInGroup( obj.querySelectorAll( "[data-constraints=username]"), aEvents, fUserName );
     /* Accepts Numbers, Letters, Points, Underscore, Guión And Arroba. */
     var fEmail = "return acceptOnlyRegExp( event, /[0-9a-zA-Z.@_-]/ );";
-    addSetAttributeInGroup(obj.querySelectorAll("[data-constraints=email]"), aEvents, fEmail);
+    addSetAttributeInGroup( obj.querySelectorAll( "[data-constraints=email]" ), aEvents, fEmail);
+    /* Accepts Numbers, 2 Points, Aa, Pp and Mm. */
     var fTime = "return acceptOnlyRegExp( event, /[0-9AaMmPp:]/ );";
-    addSetAttributeInGroup(obj.querySelectorAll("[data-constraints=time]"), aEvents, fTime);
+    addSetAttributeInGroup( obj.querySelectorAll( "[data-constraints=time]" ), aEvents, fTime);
+    /* Accepts Numbers and guión ("-"). */
     var fDate = "return acceptOnlyRegExp( event, /[0-9-]/ );";
-    addSetAttributeInGroup(obj.querySelectorAll("[data-constraints=date]"), aEvents, fDate);
-}
+    addSetAttributeInGroup( obj.querySelectorAll( "[data-constraints=date]" ), aEvents, fDate);
+} 
 
 /** Formatea las entradas de datos contenidos dentro de un elemento HTML.
 * Los elementos contenedores pueden ser por ejemplo: FORM, DIV, TABLE, SECTION...
@@ -87,7 +89,7 @@ function formatData(obj)
     addSetAttributeInGroup(obj.querySelectorAll("[data-format=float_3d]"), [ "style" ], "text-align:right");
 }
 
-/** Agrega Eventos de validación a las entradas de datos contenidos dentro de un elemento HTML.
+/** Agrega eventos de validación a las entradas de datos contenidos dentro de un elemento HTML.
 * Los elementos contenedores pueden ser por ejemplo: FORM, DIV, TABLE, SECTION...
 * Las entradas son recibidas en elementos tales como INPUT, SELECT y TEXTAREA.
 * Para agregar los eventos de validación, deben tener el atributo respectivo 'data-validation'.
@@ -126,24 +128,24 @@ function validateData(obj)
 * de lo contrario devuelve FALSE.*/
 function validateObjs(obj)
 {
-    var objsSelect = obj.getElementsByTagName("select");
+    var objsSelect = obj.getElementsByTagName( "select" );
     for ( var i = 0; i < objsSelect.length; i++ )
-       valObj(objsSelect[i]);
-    var objsTextArea = obj.getElementsByTagName("textarea");
+       valObj( objsSelect[i] );
+    var objsTextArea = obj.getElementsByTagName( "textarea" );
     for ( var i = 0; i < objsTextArea.length; i++ )
-       valObj(objsTextArea[i]);
-    var objsInput = obj.getElementsByTagName("input");
+       valObj( objsTextArea[i] );
+    var objsInput = obj.getElementsByTagName( "input" );
     var objsRadioCheck = [];
-    var k=0;
-    for( var i = 0;i < objsInput.length;i++)
-        if (objsInput[i].getAttribute('type') != 'button' 
-        && objsInput[i].getAttribute('type') != 'submit' 
-        && objsInput[i].getAttribute('type') != 'radio' 
-        && objsInput[i].getAttribute('type') != 'checkbox' 
-        && objsInput[i].getAttribute('data-validation') != null)
-            valObj(objsInput[i]);
-        else if (objsInput[i].getAttribute('type') == 'radio' ) 
-            objsRadioCheck[k++]=objsInput[i];
+    var k = 0;
+    for ( var i = 0; i < objsInput.length;i++)
+        if ( objsInput[i].getAttribute( "type" ) != "button"
+        && objsInput[i].getAttribute( "type" ) != "submit"
+        && objsInput[i].getAttribute( "type" ) != "radio"
+        && objsInput[i].getAttribute( "type" ) != "checkbox"
+        && objsInput[i].getAttribute( "data-validation" ) != null )
+            valObj( objsInput[i] );
+        else if ( objsInput[i].getAttribute( "type" ) == "radio" )
+            objsRadioCheck[k++] = objsInput[i];
     if ( objsRadioCheck.length > 0 ) {
         var key = 0;
         var keyAux = 0;
@@ -151,7 +153,7 @@ function validateObjs(obj)
         var mObjsRadioCheck = [];
         mObjsRadioCheck[key] = [];
         mObjsRadioCheck[key][keyAux++] = objsRadioCheck[0];
-        for( var i = 1; i < objsRadioCheck.length; i++ )
+        for ( var i = 1; i < objsRadioCheck.length; i++ )
             if ( strRadioCheckName == objsRadioCheck[i].name ) {
                while ( strRadioCheckName == objsRadioCheck[i].name ) {
                     mObjsRadioCheck[key][keyAux++] = objsRadioCheck[i++];
@@ -167,9 +169,9 @@ function validateObjs(obj)
                 }
             }
             for ( var i = 0; i < mObjsRadioCheck.length; i++ )
-                valObjsRadioCheck(mObjsRadioCheck[i]);
+                valObjsRadioCheck( mObjsRadioCheck[i] );
     }
-    return ( obj.getElementsByClassName('error').length == 0 );
+    return ( obj.getElementsByClassName( "error" ).length == 0 );
 }
 
 /** Valida el dato contenido en un elemento HTML. Dicho elemento puede ser: INPUT, SELECT o TEXTAREA.
@@ -179,142 +181,142 @@ function validateObjs(obj)
 * @param obj (object) Elemento HTML contenedor del dato.*/
 function valObj(obj)
 {
-    if ( obj.getAttribute('data-validation') == 'required' )
+    if ( obj.getAttribute( "data-validation" ) == "required" )
         ( obj.value == '' ) ? displayErrorMsg( obj, ' Campo Requerido' ) : removeErrorMsg(obj);
-    else if ( obj.getAttribute('data-validation') == 'length' ) {
-        if ( obj.getAttribute('data-validation-length') != null )
-            ( obj.value.length != obj.getAttribute('data-validation-length') )
-            ? displayErrorMsg( obj, ' Deben ser ' + obj.getAttribute('data-validation-length') + ' caracteres')
+    else if ( obj.getAttribute( "data-validation" ) == "length" ) {
+        if ( obj.getAttribute( "data-validation-length" ) != null )
+            ( obj.value.length != obj.getAttribute( "data-validation-length" ) )
+            ? displayErrorMsg( obj, ' Deben ser ' + obj.getAttribute( "data-validation-length" ) + ' caracteres ')
             : removeErrorMsg(obj);
-        else if ( obj.getAttribute('data-validation-min') != null )
-            ( obj.value == '' || obj.value.length < obj.getAttribute('data-validation-min') )
-            ? displayErrorMsg( obj, ' Debe ser mayor o igual a ' + obj.getAttribute('data-validation-min') + ' caracteres')
+        else if ( obj.getAttribute( "data-validation-min" ) != null )
+            ( obj.value == '' || obj.value.length < obj.getAttribute( "data-validation-min" ) )
+            ? displayErrorMsg( obj, ' Debe ser mayor o igual a ' + obj.getAttribute( "data-validation-min" ) + ' caracteres ')
             : removeErrorMsg(obj);
-        else if ( obj.getAttribute('data-validation-max') != null )
-            ( obj.value == '' || obj.value.length > obj.getAttribute('data-validation-max') )
-            ? displayErrorMsg( obj, ' Debe ser menor o igual a ' + obj.getAttribute('data-validation-max') + ' caracteres')
+        else if ( obj.getAttribute( "data-validation-max" ) != null )
+            ( obj.value == '' || obj.value.length > obj.getAttribute( "data-validation-max" ) )
+            ? displayErrorMsg( obj, ' Debe ser menor o igual a ' + obj.getAttribute( "data-validation-max" ) + ' caracteres ')
             : removeErrorMsg(obj);
-        else if ( obj.getAttribute('data-validation-min-max') != null) {
-            var arr = obj.getAttribute('data-validation-min-max').split('-');
+        else if ( obj.getAttribute( "data-validation-min-max" ) != null ) {
+            var arr = obj.getAttribute( "data-validation-min-max" ).split('-');
             ( obj.value == '' || ( obj.value.length < arr[0] || obj.value.length > arr[1] ) )
-            ? displayErrorMsg( obj, ' Debe ser entre ' 
-                + obj.getAttribute('data-validation-min-max').replace('-', ' y ') + ' caracteres')
+            ? displayErrorMsg( obj, ' Debe ser entre '
+                + obj.getAttribute( "data-validation-min-max" ).replace('-', ' y ') + ' caracteres ')
             : removeErrorMsg(obj);
         }
-    } else if ( obj.getAttribute('data-validation') == 'integer' )
-        if ( obj.getAttribute('data-validation-min') != null )
+    } else if ( obj.getAttribute( "data-validation" ) == "integer" )
+        if ( obj.getAttribute( "data-validation-min" ) != null )
             ( valInt(obj) == false )
-            ? displayErrorMsg( obj, ' Indique un valor numérico')
-            : !( valMoreThan(obj) ) 
-                ? displayErrorMsg( obj,' Indique número mayor o igual a ' + obj.getAttribute('data-validation-min') )
+            ? displayErrorMsg( obj, ' Indique un valor numérico' )
+            : !( valMoreThan(obj) )
+                ? displayErrorMsg( obj, ' Indique número mayor o igual a ' + obj.getAttribute( "data-validation-min" ) )
                 : removeErrorMsg(obj);
-        else if ( obj.getAttribute('data-validation-max') != null )
+        else if ( obj.getAttribute( "data-validation-max" ) != null )
             ( valInt(obj) == false )
-            ? displayErrorMsg( obj, ' Indique un valor numérico')
+            ? displayErrorMsg( obj, ' Indique un valor numérico' )
             : !( valLessThan(obj) )
-                ? displayErrorMsg( obj, ' Indique número menor o igual a ' + obj.getAttribute('data-validation-max') )
+                ? displayErrorMsg( obj, ' Indique número menor o igual a ' + obj.getAttribute( "data-validation-max" ) )
                 :removeErrorMsg(obj);
-        else if ( obj.getAttribute('data-validation-min-max') != null )
+        else if ( obj.getAttribute( "data-validation-min-max" ) != null )
             ( valInt(obj) == false)
             ? displayErrorMsg( obj, ' Indique un valor numérico' )
             : !( valMoreAndLessThan(obj) )
-                ? displayErrorMsg( obj, ' Indique número entre ' + obj.getAttribute('data-validation-min-max').replace('-', ' y '))
+                ? displayErrorMsg( obj, ' Indique número entre ' + obj.getAttribute( "data-validation-min-max" ).replace('-', ' y '))
                 : removeErrorMsg(obj);
         else
-            (valInt(obj)==false)?displayErrorMsg(obj, ' Indique valor numérico'):removeErrorMsg(obj);
-    else if ( obj.getAttribute('data-validation') == 'float' || obj.getAttribute('data-validation') == 'float_3d')
-        if ( obj.getAttribute('data-validation-min') != null )
+            (valInt(obj)==false)?displayErrorMsg(obj, ' Indique valor numérico' ):removeErrorMsg(obj);
+    else if ( obj.getAttribute( "data-validation" ) == "float" || obj.getAttribute( "data-validation" ) == "float_3d" )
+        if ( obj.getAttribute( "data-validation-min" ) != null )
             ( valFloat(obj) == false )
-            ? displayErrorMsg( obj, ' Indique un valor numérico')
+            ? displayErrorMsg( obj, ' Indique un valor numérico' )
             : !( valMoreThan(obj) )
-                ? displayErrorMsg( obj, ' Indique número mayor o igual a ' + obj.getAttribute('data-validation-min') )
+                ? displayErrorMsg( obj, ' Indique número mayor o igual a ' + obj.getAttribute( "data-validation-min" ) )
                 : removeErrorMsg(obj);
-        else if ( obj.getAttribute('data-validation-max') != null )
+        else if ( obj.getAttribute( "data-validation-max" ) != null )
             ( valFloat(obj) == false )
             ? displayErrorMsg( obj, ' Indique un valor numérico' )
             : !( valLessThan(obj) )
-                ? displayErrorMsg( obj, ' Indique número menor o igual a ' + obj.getAttribute('data-validation-max') )
+                ? displayErrorMsg( obj, ' Indique número menor o igual a ' + obj.getAttribute( "data-validation-max" ) )
                 : removeErrorMsg(obj);
-        else if ( obj.getAttribute('data-validation-min-max') != null )
+        else if ( obj.getAttribute( "data-validation-min-max" ) != null )
             ( valFloat(obj) == false )
-            ? displayErrorMsg( obj, ' Indique un valor numérico')
+            ? displayErrorMsg( obj, ' Indique un valor numérico' )
             : !( valMoreAndLessThan(obj) )
-                ? displayErrorMsg( obj, ' Indique número entre ' + obj.getAttribute('data-validation-min-max').replace('-', ' y '))
+                ? displayErrorMsg( obj, ' Indique número entre ' + obj.getAttribute( "data-validation-min-max" ).replace('-', ' y '))
                 : removeErrorMsg(obj);
         else
             ( valFloat(obj) == false )
             ? displayErrorMsg( obj, ' Indique valor numérico' )
             : removeErrorMsg(obj);
-    else if ( obj.getAttribute('data-validation') == 'date' )
-        if ( obj.getAttribute('data-validation-min') != null )
-            ( valDate(obj) == false)
-            ? displayErrorMsg( obj, ' Formato de Fecha Invalida')
-            : !( valMoreThan(obj) )
-                ? displayErrorMsg( obj, ' Indique fecha mayor o igual a ' + obj.getAttribute('data-validation-min') )
-                : removeErrorMsg(obj);
-        else if ( obj.getAttribute('data-validation-max') != null )
+    else if ( obj.getAttribute( "data-validation" ) == "date" )
+        if ( obj.getAttribute( "data-validation-min" ) != null )
             ( valDate(obj) == false )
             ? displayErrorMsg( obj, ' Formato de Fecha Invalida' )
-                : ! ( valLessThan(obj) ) 
-                ? displayErrorMsg( obj, ' Indique fecha menor o igual a ' + obj.getAttribute('data-validation-max') )
+            : !( valMoreThan(obj) )
+                ? displayErrorMsg( obj, ' Indique fecha mayor o igual a ' + obj.getAttribute( "data-validation-min" ) )
                 : removeErrorMsg(obj);
-        else if ( obj.getAttribute('data-validation-min-max') != null )
+        else if ( obj.getAttribute( "data-validation-max" ) != null )
             ( valDate(obj) == false )
-            ? displayErrorMsg( obj, ' Formato de Fecha Invalida')
+            ? displayErrorMsg( obj, ' Formato de Fecha Invalida' )
+                : ! ( valLessThan(obj) )
+                ? displayErrorMsg( obj, ' Indique fecha menor o igual a ' + obj.getAttribute( "data-validation-max" ) )
+                : removeErrorMsg(obj);
+        else if ( obj.getAttribute( "data-validation-min-max" ) != null )
+            ( valDate(obj) == false )
+            ? displayErrorMsg( obj, ' Formato de Fecha Invalida' )
             : !( valMoreAndLessThan(obj) )
-                ? displayErrorMsg( obj, ' Indique fecha entre ' + obj.getAttribute('data-validation-min-max').replace('/', ' y '))
+                ? displayErrorMsg( obj, ' Indique fecha entre ' + obj.getAttribute( "data-validation-min-max" ).replace('/', ' y '))
                 : removeErrorMsg(obj);
         else
             ( valDate(obj) ==false )
-            ? displayErrorMsg(obj, ' Formato de Fecha Invalida')
+            ? displayErrorMsg(obj, ' Formato de Fecha Invalida' )
             :removeErrorMsg(obj);
-    else if ( obj.getAttribute('data-validation') == 'time' )
-        if ( obj.getAttribute('data-validation-min') != null )
+    else if ( obj.getAttribute( "data-validation" ) == "time" )
+        if ( obj.getAttribute( "data-validation-min" ) != null )
             ( valTime(obj) == false )
-            ? displayErrorMsg( obj, ' Formato de Hora Invalido')
+            ? displayErrorMsg( obj, ' Formato de Hora Invalido' )
             : !( valMoreThan(obj) )
-                ? displayErrorMsg( obj, ' Indique Hora mayor o igual a ' + obj.getAttribute('data-validation-min') )
+                ? displayErrorMsg( obj, ' Indique Hora mayor o igual a ' + obj.getAttribute( "data-validation-min" ) )
                 : removeErrorMsg(obj);
-        else if ( obj.getAttribute('data-validation-max') != null )
+        else if ( obj.getAttribute( "data-validation-max" ) != null )
             ( valTime(obj) == false )
-            ? displayErrorMsg( obj, ' Formato de Hora Invalido')
+            ? displayErrorMsg( obj, ' Formato de Hora Invalido' )
             : !( valLessThan(obj) )
-                ? displayErrorMsg( obj, ' Indique Hora menor o igual a ' + obj.getAttribute('data-validation-max') )
+                ? displayErrorMsg( obj, ' Indique Hora menor o igual a ' + obj.getAttribute( "data-validation-max" ) )
                 :removeErrorMsg(obj);
-        else if ( obj.getAttribute('data-validation-min-max') != null )
+        else if ( obj.getAttribute( "data-validation-min-max" ) != null )
             ( valTime(obj) == false )
-            ? displayErrorMsg( obj, ' Formato de Hora Invalido')
+            ? displayErrorMsg( obj, ' Formato de Hora Invalido' )
             : !( valMoreAndLessThan(obj) )
-                ? displayErrorMsg( obj, ' Indique Hora entre ' + obj.getAttribute('data-validation-min-max').replace('/', ' y '))
+                ? displayErrorMsg( obj, ' Indique Hora entre ' + obj.getAttribute( "data-validation-min-max" ).replace('/', ' y '))
                 : removeErrorMsg(obj);
         else
             ( valTime(obj) == false )
-            ? displayErrorMsg( obj, ' Formato de Hora Invalido')
+            ? displayErrorMsg( obj, ' Formato de Hora Invalido' )
             : removeErrorMsg(obj);
-    else if ( obj.getAttribute('data-validation') == 'email' )
-        ( valEmail(obj.value) == false ) ? displayErrorMsg(obj, ' Formato de Correo Invalido') : removeErrorMsg(obj);
-    else if ( obj.getAttribute('data-validation') == 'url' )
-        ( valURL(obj.value) == false ) ? displayErrorMsg( obj, 'Formato de URL Invalido') : removeErrorMsg(obj);
-    else if ( obj.getAttribute('data-validation') == 'select' )
-        ( obj.selectedIndex == 0 ) ? displayErrorMsg( obj, 'Seleccione un Item') : removeErrorMsg(obj);
-    else if ( obj.getAttribute('data-validation') == 'select-small' )
-        ( obj.selectedIndex==0 ) ? displayErrorMsg( obj, 'Selec...'): removeErrorMsg(obj);
-    else if ( obj.getAttribute('data-validation') == 'select-multiple' )
-        ( obj.length==0 ) ? displayErrorMsg( obj, 'Seleccionar Item(s)') : removeErrorMsg(obj);
-    else if ( obj.getAttribute('data-validation') == 'textarea' )
+    else if ( obj.getAttribute( "data-validation" ) == "email" )
+        ( valEmail(obj.value) == false ) ? displayErrorMsg(obj, 'Formato de Correo Invalido' ) : removeErrorMsg(obj);
+    else if ( obj.getAttribute( "data-validation" ) == "url" )
+        ( valURL(obj.value) == false ) ? displayErrorMsg( obj, 'Formato de URL Invalido' ) : removeErrorMsg(obj);
+    else if ( obj.getAttribute( "data-validation" ) == "select" )
+        ( obj.selectedIndex == 0 ) ? displayErrorMsg( obj, 'Seleccione un Item' ) : removeErrorMsg(obj);
+    else if ( obj.getAttribute( "data-validation" ) == "select-small" )
+        ( obj.selectedIndex==0 ) ? displayErrorMsg( obj, 'Selec...' ): removeErrorMsg(obj);
+    else if ( obj.getAttribute( "data-validation" ) == "select-multiple" )
+        ( obj.length==0 ) ? displayErrorMsg( obj, 'Seleccionar Item(s)' ) : removeErrorMsg(obj);
+    else if ( obj.getAttribute( "data-validation" ) == "textarea" )
         ( obj.value == '') ? displayErrorMsg(obj, 'Texto Requerido' ) : removeErrorMsg(obj);
 }
 
-/** Valida que un elemento TABLE, tenga como mínimo el número de filas (elemento TR) definida con el
-* atributo (data-validation-min). Para que la tabla sea validada debe tener también el atributo:
-* (data-validation='table'). Si el elemento no cumple con la validación, la clase 'error' (css) es asignada.
-* De lo contrario, es removida.
-* @param obj (object) Elemento TABLE. Tabla a ser validado.*/
+/** Valida que un elemento TABLE, tenga como mínimo el número de filas (elemento TR)
+* definida con el atributo (data-validation-min). Para que la tabla sea validada debe tener también
+* el atributo: (data-validation='table'). Si el elemento no cumple con la validación, la clase 'error'
+* (css) es asignada, de lo contrario, es removida.
+* @param obj (object) Elemento TABLE. Tabla a ser validada.*/
 function valObjTable(obj)
 {
-    if ( obj.getAttribute('data-validation') == 'table' ) {
-        if ( valTable( obj, obj.getAttribute('data-validation-min') ) == false ) {
-            displayErrorMsgTable( obj, 'Debe agregar mínimo ' + obj.getAttribute('data-validation-min') +' Item(s)');
+    if ( obj.getAttribute( "data-validation" ) == "table" ) {
+        if ( valTable( obj, obj.getAttribute( "data-validation-min" ) ) == false ) {
+            displayErrorMsgTable( obj, 'Debe agregar mínimo ' + obj.getAttribute( "data-validation-min" ) + ' Item(s)' );
             return false;
         } else {
             removeErrorMsgTable(obj);
@@ -336,7 +338,7 @@ function valFloat(obj)
 * @return (boolean) Devuelve FALSE si no cumple con la condición, de lo contrario devuelve TRUE.*/
 function valInt(obj)
 {
-    var x= obj.value.replace(/\./g, '');//var x= obj.value;
+    var x = obj.value.replace(/\./g, '');
     var y = parseInt(x);
     if ( isNaN(y) )
         return false;
@@ -350,33 +352,33 @@ function valInt(obj)
 * @return (boolean) Devuelve FALSE si no cumple con la condición, de lo contrario devuelve TRUE.*/
 function valMoreThan(obj)
 {
-    if ( obj.getAttribute('data-validation') == 'integer' 
-    || obj.getAttribute('data-validation') == 'float' 
-    || obj.getAttribute('data-validation')=='float_3d' )
-        return ( ( obj.value.replace(/\./g, '').replace(',', '.')*1 ) >= ( obj.getAttribute('data-validation-min') * 1 ) );
-    else if ( obj.getAttribute('data-validation') == 'date' )
-        return ( ( obj.value.replace(/\-/g, '')*1 ) >= ( obj.getAttribute('data-validation-min').replace(/\-/g, '') * 1 ) );
-    else if ( obj.getAttribute('data-validation') == 'time')
-        return ( ( chkHour00To24( timeNormalToMilitar( obj.value ) ).replace(/\:/g, '') * 1 ) 
-            >= ( chkHour00To24( timeNormalToMilitar( obj.getAttribute('data-validation-min') ) ).replace(/\:/g, '') * 1 ) );
+    if ( obj.getAttribute( "data-validation" ) == "integer"
+    || obj.getAttribute( "data-validation" ) == "float"
+    || obj.getAttribute( "data-validation" )=="float_3d" )
+        return ( ( obj.value.replace(/\./g, '').replace(',', '.') * 1 ) >= ( obj.getAttribute( "data-validation-min" ) * 1 ) );
+    else if ( obj.getAttribute( "data-validation" ) == "date" )
+        return ( ( obj.value.replace(/\-/g, '') * 1 ) >= ( obj.getAttribute( "data-validation-min" ).replace(/\-/g, '') * 1 ) );
+    else if ( obj.getAttribute( "data-validation" ) == "time")
+        return ( ( chkHour00To24( timeNormalToMilitar( obj.value ) ).replace(/\:/g, '') * 1 )
+            >= ( chkHour00To24( timeNormalToMilitar( obj.getAttribute( "data-validation-min" ) ) ).replace(/\:/g, '') * 1 ) );
 }
 
 /** Valida que el valor de un elemento sea menor o igual que el contenido del atributo 'data-validation-max'.
-* Para que el elemento sea validado debe tener también el atributo: ('data-validation') con su valor respectivo
+* Para que el elemento sea validado debe tener también el atributo: ( 'data-validation' ) con su valor respectivo
 * ('integer'; 'float'; 'date'; 'time').
 * @param obj (object) Elemento que contiene el valor a ser validado.
 * @return (boolean) Devuelve FALSE si no cumple con la condición, de lo contrario devuelve TRUE.*/
 function valLessThan(obj)
 {
-    if ( obj.getAttribute('data-validation') == 'integer' 
-    || obj.getAttribute('data-validation') == 'float'
-    || obj.getAttribute('data-validation') == 'float_3d' )
-        return ( ( obj.value.replace(/\./g, '').replace(',', '.') * 1 ) <= ( obj.getAttribute('data-validation-max') * 1 ) );
-    else if ( obj.getAttribute('data-validation') == 'date' )
-        return ( ( obj.value.replace(/\-/g, '') * 1 ) <= ( obj.getAttribute('data-validation-max').replace(/\-/g, '') * 1 ) );
-    else if ( obj.getAttribute('data-validation') == 'time' )
+    if ( obj.getAttribute( "data-validation" ) == "integer"
+    || obj.getAttribute( "data-validation" ) == "float"
+    || obj.getAttribute( "data-validation" ) == "float_3d" )
+        return ( ( obj.value.replace(/\./g, '').replace(',', '.') * 1 ) <= ( obj.getAttribute( "data-validation-max" ) * 1 ) );
+    else if ( obj.getAttribute( "data-validation" ) == "date" )
+        return ( ( obj.value.replace(/\-/g, '') * 1 ) <= ( obj.getAttribute( "data-validation-max" ).replace(/\-/g, '') * 1 ) );
+    else if ( obj.getAttribute( "data-validation" ) == "time" )
         return ( ( chkHour00To24( timeNormalToMilitar(obj.value) ).replace(/\:/g, '') * 1 )
-            <= ( chkHour00To24( timeNormalToMilitar( obj.getAttribute('data-validation-max') ) ).replace(/\:/g, '') * 1 ) );
+            <= ( chkHour00To24( timeNormalToMilitar( obj.getAttribute( "data-validation-max" ) ) ).replace(/\:/g, '') * 1 ) );
 }
 
 /** Valida que el valor de un elemento sea mayor o igual que y menor o igual que
@@ -387,22 +389,22 @@ function valLessThan(obj)
 * @return (boolean) Devuelve FALSE si no cumple con la condición, de lo contrario devuelve TRUE.*/
 function valMoreAndLessThan(obj)
 {
-    var arr = obj.getAttribute('data-validation-min-max').split(obj.getAttribute('data-validation') == 'date' ? '/' : '-' );
-    if ( obj.getAttribute('data-validation') == 'integer' 
-    || obj.getAttribute('data-validation') == 'float'
-    || obj.getAttribute('data-validation') == 'float_3d' )
+    var arr = obj.getAttribute( "data-validation-min-max" ).split(obj.getAttribute( "data-validation" ) == "date" ? '/' : '-' );
+    if ( obj.getAttribute( "data-validation" ) == "integer"
+    || obj.getAttribute( "data-validation" ) == "float"
+    || obj.getAttribute( "data-validation" ) == "float_3d" )
         return ( ( obj.value.replace(/\./g, '').replace(',', '.') * 1 )
-        >= ( arr[0] * 1 ) 
-        && ( obj.value.replace(/\./g, '').replace(',', '.') * 1 ) 
+        >= ( arr[0] * 1 )
+        && ( obj.value.replace(/\./g, '').replace(',', '.') * 1 )
         <= ( arr[1] * 1 ) );
-    else if ( obj.getAttribute('data-validation') == 'date' )
+    else if ( obj.getAttribute( "data-validation" ) == "date" )
         return ( ( obj.value.replace(/\-/g, '') * 1 )
-        >= ( arr[0].replace(/\-/g, '') * 1 ) 
-        && ( obj.value.replace(/\-/g, '') * 1 ) 
+        >= ( arr[0].replace(/\-/g, '') * 1 )
+        && ( obj.value.replace(/\-/g, '') * 1 )
         <= ( arr[1].replace(/\-/g, '') * 1 ) );
-    else if ( obj.getAttribute('data-validation') == 'time')
+    else if ( obj.getAttribute( "data-validation" ) == "time" )
         return ( ( chkHour00To24( timeNormalToMilitar(obj.value) ).replace(/\:/g, '') * 1 )
-        >= ( chkHour00To24( timeNormalToMilitar( arr[0] ) ).replace(/\:/g, '') * 1 ) 
+        >= ( chkHour00To24( timeNormalToMilitar( arr[0] ) ).replace(/\:/g, '') * 1 )
         && ( chkHour00To24( timeNormalToMilitar( obj.value) ).replace(/\:/g, '') * 1 )
         <= ( chkHour00To24( timeNormalToMilitar( arr[1] ) ).replace(/\:/g, '') * 1 ) );
 }
@@ -428,18 +430,18 @@ function valObjs(strName)
 function valObjsRadioCheck(arrayObj)
 {
     var nSelected = 0;
-    if ( arrayObj[0].getAttribute('data-validation')=='radio' || arrayObj[0].getAttribute('data-validation')=='checkbox') {
-        var dataValidation = arrayObj[0].getAttribute('data-validation');
-        var strUn = ( arrayObj[0].getAttribute('data-validation') == 'checkbox' ) ? 'algún(os)' : 'un';
-        var strS = ( arrayObj[0].getAttribute('data-validation') == 'checkbox') ? '(s)' : '';
+    if ( arrayObj[0].getAttribute( "data-validation" ) == "radio" || arrayObj[0].getAttribute( "data-validation" ) == "checkbox" ) {
+        var dataValidation = arrayObj[0].getAttribute( "data-validation" );
+        var strUn = ( arrayObj[0].getAttribute( "data-validation" ) == "checkbox" ) ? 'algún(os)' : 'un';
+        var strS = ( arrayObj[0].getAttribute( "data-validation" ) == "checkbox") ? '(s)' : '';
     } else
         return null;
-        for( j = 0; j < arrayObj.length; j++ )
-            if ( arrayObj[j].getAttribute('data-validation') != dataValidation )
+        for ( j = 0; j < arrayObj.length; j++ )
+            if ( arrayObj[j].getAttribute( "data-validation" ) != dataValidation )
                 return null;
             else if ( arrayObj[j].checked )
-                nSelected=1;
-	( nSelected == 0 ) ? displayErrorMsg( arrayObj[--j], 'Seleccione ' + strUn + ' Item' + strS ) : removeErrorMsg( arrayObj[--j] );
+                nSelected = 1;
+        ( nSelected == 0 ) ? displayErrorMsg( arrayObj[--j], 'Seleccione ' + strUn + ' Item' + strS ) : removeErrorMsg( arrayObj[--j] );
 }
 
 /** Muestra un mensaje debajo del elemento enviado como parámetro, con las características de la clase 'error'.
@@ -447,14 +449,14 @@ function valObjsRadioCheck(arrayObj)
 * @param msj (string) Mensaje que será mostrado con las características de la clase 'error' (css).*/
 function displayErrorMsg(obj, msg)
 {
-    if ( obj.parentNode.getElementsByTagName("span").length == 0 ) {
-        obj.setAttribute('class','error');
-        var objDisplayErrorMsg = document.createElement('span');
+    if ( obj.parentNode.getElementsByTagName( "span" ).length == 0 ) {
+        obj.setAttribute("class", "error" );
+        var objDisplayErrorMsg = document.createElement( "span" );
         objDisplayErrorMsg.innerHTML = msg;
-        objDisplayErrorMsg.setAttribute('class','help-block form-error');
+        objDisplayErrorMsg.setAttribute("class","help-block form-error");
         obj.parentNode.appendChild(objDisplayErrorMsg);
     } else {
-        var oSpan = obj.parentNode.getElementsByTagName("span");
+        var oSpan = obj.parentNode.getElementsByTagName( "span" );
         oSpan[0].innerHTML = msg;
     }
 }
@@ -464,10 +466,10 @@ function displayErrorMsg(obj, msg)
 * @param obj (object) Elemento al cual se le removerá el mensaje y se eliminará la clase 'error' (css).*/
 function removeErrorMsg(obj)
 {
-    var objP = obj.parentNode.getElementsByTagName("span");
+    var objP = obj.parentNode.getElementsByTagName( "span" );
     if ( objP.length == 1 )
         obj.parentNode.removeChild(obj.parentNode.lastChild);
-    obj.setAttribute('class','valid');
+    obj.setAttribute("class","valid");
 }
 
 /** Inicializa el valor de un elemento HTML de entrada de datos y le asigna la clase 'init' (css).
@@ -477,10 +479,10 @@ function initializeObj(obj, value)
 {
     if ( value != null )
         obj.value = value;
-    var objP = obj.parentNode.getElementsByTagName("span");
+    var objP = obj.parentNode.getElementsByTagName( "span" );
     if ( objP.length == 1 )
         obj.parentNode.removeChild(obj.parentNode.lastChild);
-    obj.setAttribute('class','init');
+    obj.setAttribute("class","init");
 }
 
 /** Muestra un mensaje debajo del elemento TABLE enviado como parámetro, con las características de la clase 'error'.
@@ -488,10 +490,10 @@ function initializeObj(obj, value)
 * @param msj (string) Mensaje que será mostrado con las características de la clase 'error' (css).*/
 function displayErrorMsgTable(obj, msg)
 {
-    if ( obj.parentNode.getElementsByTagName("span").length == 0 ) {
-        var objDisplayErrorMsg = document.createElement('span');
+    if ( obj.parentNode.getElementsByTagName( "span" ).length == 0 ) {
+        var objDisplayErrorMsg = document.createElement("span");
         objDisplayErrorMsg.innerHTML = msg;
-        objDisplayErrorMsg.setAttribute('class','help-block form-error');
+        objDisplayErrorMsg.setAttribute("class","help-block form-error");
         obj.parentNode.appendChild(objDisplayErrorMsg);
     }
 }
@@ -501,7 +503,7 @@ function displayErrorMsgTable(obj, msg)
 * @param obj (object) Elemento TABLE al cual se le removerá el mensaje y se eliminará la clase 'error' (css).*/
 function removeErrorMsgTable(obj)
 {
-    var objP = obj.parentNode.getElementsByTagName("span");
+    var objP = obj.parentNode.getElementsByTagName( "span" );
     if ( objP.length == 1 )
         obj.parentNode.removeChild(obj.parentNode.lastChild);
 }
@@ -522,7 +524,7 @@ function valEmail(strValue)
 * De lo contrario devuelve FALSE.*/
 function valURL(strValue)
 {
-    var urlFilter = /^(https?|ftp):\/\/((((\w|-|\.|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])(\w|-|\.|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])(\w|-|\.|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/(((\w|-|\.|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/((\w|-|\.|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|\[|\]|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#(((\w|-|\.|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
+    var urlFilter = /^(https?|ftp):\/\/((((\w|-|\.|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])(\w|-|\.|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])(\w|-|\.|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/(((\w|-|\.|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/((\w|-|\.|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|\[|\]|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#(((\w|-|\.|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i; 
     return urlFilter.test(strValue);
 }
 
@@ -581,25 +583,25 @@ function valTable(obj, minRow)
 * @param obj (object) Elemento que su valor será inicializado.*/
 function initObjs(obj)
 {
-    var objsInput=obj.getElementsByTagName("input");
-    var objsRadioCheck=[];
-    var k=0;
-    for( var i = 0; i < objsInput.length; i++ )
-        if ( objsInput[i].getAttribute('type') != 'button' 
-        && objsInput[i].getAttribute('type') != 'submit' 
-        && objsInput[i].getAttribute('type') != 'radio' 
-        && objsInput[i].getAttribute('type') != 'checkbox' 
-        && objsInput[i].getAttribute('data-validation') != null) 
-            initObj(objsInput[i]);
-        else if ( objsInput[i].getAttribute('type') == 'radio' || objsInput[i].getAttribute('type') == 'checkbox' )
-            objsRadioCheck[k++]=objsInput[i];
+    var objsInput = obj.getElementsByTagName( "input" );
+    var objsRadioCheck = [];
+    var k = 0;
+    for ( var i = 0; i < objsInput.length; i++ )
+        if ( objsInput[i].getAttribute("type") != "button" 
+        && objsInput[i].getAttribute("type") != "submit"
+        && objsInput[i].getAttribute("type") != "radio"
+        && objsInput[i].getAttribute("type") != "checkbox"
+        && objsInput[i].getAttribute( "data-validation" ) != null)
+            initObj( objsInput[i] );
+        else if ( objsInput[i].getAttribute( "type" ) == "radio" || objsInput[i].getAttribute( "type" ) == "checkbox" )
+            objsRadioCheck[k++] = objsInput[i];
     if ( objsRadioCheck.length > 0 ) {
         var key = 0;
-        var keyAux=0;
+        var keyAux = 0;
         var strRadioCheckName = objsRadioCheck[0].name;
-        var mObjsRadioCheck=[];
-       	mObjsRadioCheck[key]=[];
-        mObjsRadioCheck[key][keyAux++]=objsRadioCheck[0];
+        var mObjsRadioCheck = [];
+      	 mObjsRadioCheck[key] = [];
+        mObjsRadioCheck[key][keyAux++] = objsRadioCheck[0];
         for ( var i = 1; i < objsRadioCheck.length; i++ )
             if ( strRadioCheckName == objsRadioCheck[i].name ) {
                 while ( strRadioCheckName == objsRadioCheck[i].name ) {
@@ -612,18 +614,18 @@ function initObjs(obj)
                 else {
                     strRadioCheckName = objsRadioCheck[i--].name;
                     keyAux = 0;
-                    mObjsRadioCheck[++key]=[];
+                    mObjsRadioCheck[++key] = [];
                 }
             }
         for ( var i = 0; i < mObjsRadioCheck.length; i++ )
-            intObjsRadioCheck(mObjsRadioCheck[i]);
+            intObjsRadioCheck( mObjsRadioCheck[i] );
     }
-    var objsSelect=obj.getElementsByTagName("select");
-    for( var i = 0; i < objsSelect.length; i++ )
-        initObj(objsSelect[i]);
-    var objsTextArea = obj.getElementsByTagName("textarea");
-    for( var i = 0; i < objsTextArea.length; i++ )
-        initObj(objsTextArea[i]);
+    var objsSelect = obj.getElementsByTagName( "select" );
+    for ( var i = 0; i < objsSelect.length; i++ )
+        initObj( objsSelect[i] );
+    var objsTextArea = obj.getElementsByTagName( "textarea" );
+    for ( var i = 0; i < objsTextArea.length; i++ )
+        initObj( objsTextArea[i] );
 }
 
 /** Inicializa el valor de un elemento HTML de entrada de datos.
@@ -631,25 +633,25 @@ function initObjs(obj)
 * Esta función implementa initializeObj() como auxiliar.
 * @param obj (object) Elemento que su valor será inicializado.*/
 function initObj(obj){
-    if ( (obj.getAttribute('data-validation')=='required') 
-    || (obj.getAttribute('data-validation')=='length') 
-    || (obj.getAttribute('data-validation')=='email') 
-    || (obj.getAttribute('data-validation')=='url') 
-    || (obj.getAttribute('data-validation')=='textarea') )
-        initializeObj(obj,'');
-    else if (obj.getAttribute('data-validation')=='integer')
-        initializeObj(obj,'0');
-    else if (obj.getAttribute('data-validation')=='float')
-        initializeObj(obj,'0,00');
-    else if (obj.getAttribute('data-validation')=='float_3d')
-        initializeObj(obj,'0,000');
-    else if ((obj.getAttribute('data-validation')=='select') || (obj.getAttribute('data-validation')=='select-small'))
-        initializeObj(obj,'null');
-    else if (obj.getAttribute('data-validation')=='time')
-        initializeObj(obj,currentTime());	
-    else if (obj.getAttribute('data-validation')=='date')
-        initializeObj(obj, dateOfToday('YYYYMMDD', '-'));
-    /*else if (obj.getAttribute('data-validation')=='table') */
+    if ( (obj.getAttribute( "data-validation" )== "required" ) 
+    || (obj.getAttribute( "data-validation" )=="length")
+    || (obj.getAttribute( "data-validation" )=="email")
+    || (obj.getAttribute( "data-validation" )=="url")
+    || (obj.getAttribute( "data-validation" )=="textarea") )
+        initializeObj( obj, '' );
+    else if ( obj.getAttribute( "data-validation" ) == "integer" )
+        initializeObj( obj, '0' );
+    else if ( obj.getAttribute( "data-validation" ) == "float" )
+        initializeObj( obj, '0,00' );
+    else if ( obj.getAttribute( "data-validation" ) == "float_3d" )
+        initializeObj( obj, '0,000' );
+    else if ( ( obj.getAttribute( "data-validation" ) == "select" ) || ( obj.getAttribute( "data-validation" ) == "select-small" ) )
+        initializeObj( obj, 'null' );
+    else if ( obj.getAttribute( "data-validation" ) == "time" )
+        initializeObj( obj, currentTime() );
+    else if ( obj.getAttribute( "data-validation" ) == "date" )
+        initializeObj( obj, dateOfToday( 'YYYYMMDD', '-' ) );
+    //*else if (obj.getAttribute( "data-validation" ) == 'table' ) */
 }
 
 /** Inicializa los valore de un arreglo de elementos HTML de entrada de datos tipo RADIO o CHECKBOX.
@@ -660,8 +662,8 @@ function initObj(obj){
 * para que sus valores sean inicializado.*/
 function intObjsRadioCheck(arrayObj)
 {
-    if ( arrayObj[0].getAttribute('data-validation') == 'radio' || arrayObj[0].getAttribute('data-validation') == 'checkbox') {
-        for( var j = 0; j < arrayObj.length; j++ )
+    if ( arrayObj[0].getAttribute( "data-validation" ) == "radio" || arrayObj[0].getAttribute( "data-validation" ) == "checkbox") {
+        for ( var j = 0; j < arrayObj.length; j++ )
             arrayObj[j].checked = false;
         initializeObj(arrayObj[--j]);
     }
@@ -675,7 +677,7 @@ function intObjsRadioCheck(arrayObj)
 function initObjsSelectMultiple(objSelect, objSelected) {
     for ( var i = 0; i < objSelected.length; i++ )
         objSelected[i].selected = true;
-    move('left', objSelect, objSelected);
-    initializeObj(objSelected,'null');
+    move( 'left', objSelect, objSelected );
+    initializeObj( objSelected, 'null' );
 }
 
