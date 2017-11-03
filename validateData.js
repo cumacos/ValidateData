@@ -9,7 +9,7 @@
 function constraintsData(obj)
 {
     var aEvents = [ "onkeypress" ];
-    var fNoBlankSpaceLeft=" && ((this.value.length==0 && ((document.all)?event.keyCode:event.which)==32)?false:true);"; 
+    var fNoBlankSpaceLeft = " && ((this.value.length==0 && ((document.all)?event.keyCode:event.which)==32)?false:true);"; 
     this.acceptOnlyRegExp = function( e, strRegExp )
     {
         var tecla = ( document.all ) ? e.keyCode : e.which;
@@ -30,7 +30,7 @@ function constraintsData(obj)
     var fCode = "return acceptOnlyRegExp( event, /[0-9a-zA-Z]/ );";
     addSetAttributeInGroup( obj.querySelectorAll( "[data-constraints=code]" ), aEvents, fCode );
     /* Accepts Letters, Blanks, Points and Commas. */
-    var fFullName = "return (acceptOnlyRegExp( event, /[a-zñA-ZÑ\\s.,]/ ))" + fNoBlankSpaceLeft;
+    var fFullName = "return acceptOnlyRegExp( event, /[a-zñA-ZÑ\\s.,]/ )" + fNoBlankSpaceLeft;
     addSetAttributeInGroup( obj.querySelectorAll( "[data-constraints=fullname]" ), aEvents, fFullName );
     /* Accepts Letters, Blanks, Points, Commas and Parentheses. */
     var fTextArea = "return acceptOnlyRegExp( event, /[0-9a-zñA-ZÑ\\s.,()]/ )" + fNoBlankSpaceLeft;
