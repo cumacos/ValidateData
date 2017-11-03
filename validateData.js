@@ -9,6 +9,7 @@
 function constraintsData(obj)
 {
     var aEvents = [ "onkeypress" ];
+    var fNoBlankSpaceLeft=" && ((this.value.length==0 && ((document.all)?event.keyCode:event.which)==32)?false:true);"; 
     this.acceptOnlyRegExp = function( e, strRegExp )
     {
         var tecla = ( document.all ) ? e.keyCode : e.which;
@@ -29,13 +30,13 @@ function constraintsData(obj)
     var fCode = "return acceptOnlyRegExp( event, /[0-9a-zA-Z]/ );";
     addSetAttributeInGroup( obj.querySelectorAll( "[data-constraints=code]" ), aEvents, fCode );
     /* Accepts Letters, Blanks, Points and Commas. */
-    var fFullName = "return acceptOnlyRegExp( event, /[a-zA-Z\\s.,]/ );";
+    var fFullName = "return (acceptOnlyRegExp( event, /[a-zñA-ZÑ\\s.,]/ ))" + fNoBlankSpaceLeft;
     addSetAttributeInGroup( obj.querySelectorAll( "[data-constraints=fullname]" ), aEvents, fFullName );
     /* Accepts Letters, Blanks, Points, Commas and Parentheses. */
-    var fTextArea = "return acceptOnlyRegExp( event, /[0-9a-zñA-ZÑ\\s.,()]/ );";
+    var fTextArea = "return acceptOnlyRegExp( event, /[0-9a-zñA-ZÑ\\s.,()]/ )" + fNoBlankSpaceLeft;
     addSetAttributeInGroup( obj.querySelectorAll( "[data-constraints=textarea]" ), aEvents, fTextArea );
     /* Accepts Letters, Blanks, Points, Commas, Parentheses and Ampersand. */
-    var fFirmName = "return acceptOnlyRegExp( event, /[0-9a-zA-Z\\s.,()&]/ );";
+    var fFirmName = "return acceptOnlyRegExp( event, /[0-9a-zñA-ZÑ\\s.,()&]/ )" + fNoBlankSpaceLeft ;
     addSetAttributeInGroup( obj.querySelectorAll( "[data-constraints=firmname]" ), aEvents, fFirmName);
     /* Accepts Numbers, Letters, Points And Underscore. */
     var fUserName = "return acceptOnlyRegExp( event, /[0-9a-zA-Z._]/ );";
@@ -66,7 +67,6 @@ function formatData(obj)
     );
     addSetAttributeInGroup(obj.querySelectorAll("[data-format=uppercase]"), "style" , "text-transform: uppercase");
 
-    aEvents = [ "keyup" ];
     addEventListenerInGroup
     (
         obj.querySelectorAll("[data-format=lowercase]"), aEvents, function(event){this.value = this.value.toLowerCase();}
@@ -78,12 +78,10 @@ function formatData(obj)
     addSetAttributeInGroup(obj.querySelectorAll("[data-format=integer]"), aEvents, fInt);
     addSetAttributeInGroup(obj.querySelectorAll("[data-format=integer]"), [ "style" ], "text-align:right");
 
-    aEvents = [ "onkeypress" ];
     var fFloat = "return formato_float(this, '.', ',', event);";
     addSetAttributeInGroup(obj.querySelectorAll("[data-format=float]"), aEvents, fFloat);
     addSetAttributeInGroup(obj.querySelectorAll("[data-format=float]"), [ "style" ], "text-align:right");
 
-    aEvents = [ "onkeypress" ];
     var fFloat3d = "return formato_float_3d(this, '.', ',', event);";
     addSetAttributeInGroup(obj.querySelectorAll("[data-format=float_3d]"), aEvents, fFloat3d);
     addSetAttributeInGroup(obj.querySelectorAll("[data-format=float_3d]"), [ "style" ], "text-align:right");
