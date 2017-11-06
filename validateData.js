@@ -131,7 +131,7 @@ function validateObjs(obj)
        valObj( objsSelect[i] );
     var objsTextArea = obj.getElementsByTagName( "textarea" );
     for ( var i = 0; i < objsTextArea.length; i++ )
-       valObj( objsTextArea[i] );
+       valObj( objsTextArea[i], true );
     var objsInput = obj.getElementsByTagName( "input" );
     var objsRadioCheck = [];
     var k = 0;
@@ -141,7 +141,7 @@ function validateObjs(obj)
         && objsInput[i].getAttribute( "type" ) != "radio"
         && objsInput[i].getAttribute( "type" ) != "checkbox"
         && objsInput[i].getAttribute( "data-validation" ) != null )
-            valObj( objsInput[i] );
+            valObj( objsInput[i], true );
         else if ( objsInput[i].getAttribute( "type" ) == "radio" )
             objsRadioCheck[k++] = objsInput[i];
     if ( objsRadioCheck.length > 0 ) {
@@ -177,8 +177,9 @@ function validateObjs(obj)
 * Si el elemento no cumple con la validación, la clase 'error' (css) es asignada al elemento. De lo contrario
 * dicha clase es removida.
 * @param obj (object) Elemento HTML contenedor del dato.*/
-function valObj(obj)
+function valObj(obj , inGroup = false)
 {
+    obj.value = inGroup?obj.value.replace(/([\ \t]+(?=[\ \t])|^\s+|\s+$)/g, ''):obj.value.replace(/([\ \t]+(?=[\ \t])|^\s+)/g, '');
     if ( obj.getAttribute( "data-validation" ) == "required" )
         ( obj.value == '' ) ? displayErrorMsg( obj, ' Campo Requerido' ) : removeErrorMsg(obj);
     else if ( obj.getAttribute( "data-validation" ) == "length" ) {
