@@ -60,16 +60,16 @@ function constraintsData(obj)
 * @param obj (object) Elemento contenedor de las entradas de datos. Ejemplo: FORM, DIV, TABLE, SECTION....*/
 function formatData(obj)
 {
-    var aEvents = [ "blur" ];
+    var aEvents = [ "keyup" ];
     addEventListenerInGroup
     (
-        obj.querySelectorAll("[data-format=uppercase]"), aEvents, function(){this.value = this.value.toUpperCase();}
+        obj.querySelectorAll("[data-format=uppercase]"), aEvents, function(event){this.value = this.value.toUpperCase();}
     );
     addSetAttributeInGroup(obj.querySelectorAll("[data-format=uppercase]"), "style" , "text-transform: uppercase");
 
     addEventListenerInGroup
     (
-        obj.querySelectorAll("[data-format=lowercase]"), aEvents, function(){this.value = this.value.toLowerCase();}
+        obj.querySelectorAll("[data-format=lowercase]"), aEvents, function(event){this.value = this.value.toLowerCase();}
     );
     addSetAttributeInGroup(obj.querySelectorAll("[data-format=lowercase]"), "style" , "text-transform: lowercase");
 
